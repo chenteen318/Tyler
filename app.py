@@ -21,245 +21,58 @@ MONTHS = [
     ("2026-02-01", "2026-02-28", "2026年2月"),
 ]
 
-# ── Design tokens ─────────────────────────────────────
-BG        = "#0e1117"
-CARD      = "#1a1f2e"
-CARD2     = "#222840"
-BORDER    = "#2d3655"
-CYAN      = "#00d4ff"
-GREEN     = "#00c896"
-RED       = "#ff4b6e"
-TEXT      = "#e2e8f0"
-MUTED     = "#8892b0"
-CHART_BG  = "#0d1117"
-GRID      = "#1e2a3a"
+HEADER_BLUE  = "#4472C4"
+HEADER_GREEN = "#70AD47"
 
-DESIGN_CSS = """
+MOBILE_CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
-/* ── Base ── */
-html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
-    background-color: #0e1117 !important;
-    color: #e2e8f0 !important;
-    font-family: 'Inter', sans-serif !important;
-}
-.block-container {
-    padding: 1.5rem 2rem 3rem !important;
-    max-width: 1400px !important;
-}
-
-/* ── Sidebar ── */
-[data-testid="stSidebar"] {
-    background-color: #111827 !important;
-    border-right: 1px solid #2d3655 !important;
-}
-[data-testid="stSidebar"] * { color: #e2e8f0 !important; }
-[data-testid="stSidebar"] .stMultiSelect > div > div {
-    background-color: #1a1f2e !important;
-    border-color: #2d3655 !important;
-}
-
-/* ── Title ── */
-h1 {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 1.9rem !important;
-    background: linear-gradient(90deg, #00d4ff, #00c896) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-    margin-bottom: 0.25rem !important;
-}
-h2 {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 600 !important;
-    font-size: 1.1rem !important;
-    color: #cbd5e1 !important;
-    letter-spacing: 0.02em !important;
-}
-h3 {
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 600 !important;
-    font-size: 1rem !important;
-    color: #00d4ff !important;
-    border-left: 3px solid #00d4ff;
-    padding-left: 0.6rem !important;
-    margin: 1.2rem 0 0.6rem !important;
-}
-
-/* ── Tabs ── */
-[data-testid="stTabs"] [role="tablist"] {
-    border-bottom: 1px solid #2d3655 !important;
-    gap: 0.25rem !important;
-}
-[data-testid="stTabs"] button[role="tab"] {
-    background: transparent !important;
-    color: #8892b0 !important;
-    border: none !important;
-    border-bottom: 2px solid transparent !important;
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 500 !important;
-    font-size: 0.9rem !important;
-    padding: 0.6rem 1.2rem !important;
-    transition: all 0.2s !important;
-}
-[data-testid="stTabs"] button[role="tab"]:hover { color: #e2e8f0 !important; }
-[data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-    color: #00d4ff !important;
-    border-bottom: 2px solid #00d4ff !important;
-}
-
-/* ── Metric cards ── */
-[data-testid="stMetric"] {
-    background: linear-gradient(135deg, #1a1f2e, #222840) !important;
-    border: 1px solid #2d3655 !important;
-    border-radius: 12px !important;
-    padding: 1rem 1.2rem !important;
-    position: relative !important;
-    overflow: hidden !important;
-}
-[data-testid="stMetric"]::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #00c896);
-}
-[data-testid="stMetricLabel"] p {
-    font-family: 'Inter', sans-serif !important;
-    font-size: 0.72rem !important;
-    font-weight: 500 !important;
-    color: #8892b0 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
-}
-[data-testid="stMetricValue"] {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 1.5rem !important;
-    font-weight: 500 !important;
-    color: #00d4ff !important;
-}
-
-/* ── Buttons ── */
-.stButton > button {
-    background: linear-gradient(135deg, #00d4ff22, #00c89622) !important;
-    color: #00d4ff !important;
-    border: 1px solid #00d4ff55 !important;
-    border-radius: 8px !important;
-    font-family: 'Inter', sans-serif !important;
-    font-weight: 500 !important;
-    font-size: 0.85rem !important;
-    padding: 0.45rem 1.2rem !important;
-    transition: all 0.2s !important;
-}
-.stButton > button:hover {
-    background: linear-gradient(135deg, #00d4ff44, #00c89644) !important;
-    border-color: #00d4ff !important;
-    box-shadow: 0 0 12px #00d4ff33 !important;
-}
-
-/* ── Selectbox / Multiselect ── */
-[data-testid="stSelectbox"] > div > div,
-[data-testid="stMultiSelect"] > div > div {
-    background-color: #1a1f2e !important;
-    border-color: #2d3655 !important;
-    border-radius: 8px !important;
-    color: #e2e8f0 !important;
-    font-family: 'Inter', sans-serif !important;
-}
-[data-testid="stSelectbox"] label,
-[data-testid="stMultiSelect"] label {
-    color: #8892b0 !important;
-    font-size: 0.8rem !important;
-    font-weight: 500 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.06em !important;
-}
-
-/* ── Expander ── */
-[data-testid="stExpander"] {
-    background-color: #1a1f2e !important;
-    border: 1px solid #2d3655 !important;
-    border-radius: 10px !important;
-    margin-bottom: 1rem !important;
-}
-[data-testid="stExpander"] summary {
-    color: #8892b0 !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 0.85rem !important;
-}
-
-/* ── Dataframe ── */
-[data-testid="stDataFrame"] {
-    border-radius: 10px !important;
-    overflow: hidden !important;
-    border: 1px solid #2d3655 !important;
-}
-[data-testid="stDataFrame"] th {
-    background-color: #1a1f2e !important;
-    color: #8892b0 !important;
-    font-family: 'Inter', sans-serif !important;
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.06em !important;
-    border-bottom: 1px solid #2d3655 !important;
-}
-[data-testid="stDataFrame"] td {
-    font-family: 'JetBrains Mono', monospace !important;
-    font-size: 0.82rem !important;
-    color: #cbd5e1 !important;
-    border-bottom: 1px solid #1e2533 !important;
-}
-
-/* ── Divider ── */
-hr { border-color: #2d3655 !important; margin: 1.5rem 0 !important; }
-
-/* ── Info box ── */
-[data-testid="stAlert"] {
-    background-color: #1a1f2e !important;
-    border: 1px solid #2d3655 !important;
-    border-radius: 8px !important;
-    color: #8892b0 !important;
-}
-
-/* ── Spinner ── */
-[data-testid="stSpinner"] { color: #00d4ff !important; }
-
-/* ── Caption ── */
-[data-testid="stCaptionContainer"] p {
-    color: #4a5568 !important;
-    font-size: 0.75rem !important;
-}
-
-/* ── Sidebar header ── */
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
-    -webkit-text-fill-color: #00d4ff !important;
-    color: #00d4ff !important;
-    border: none !important;
-    padding-left: 0 !important;
-}
-
-/* ── Mobile ── */
+/* ── 手機版：欄位自動堆疊 ── */
 @media (max-width: 768px) {
-    .block-container { padding: 1rem 0.75rem 2rem !important; }
-    h1 { font-size: 1.4rem !important; }
-    h3 { font-size: 0.9rem !important; }
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+    }
+    [data-testid="column"] {
+        min-width: 100% !important;
+        width: 100% !important;
+        flex: 1 1 100% !important;
+    }
 
-    [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; gap: 0.5rem !important; }
-    [data-testid="column"] { min-width: 100% !important; flex: 1 1 100% !important; }
+    /* 標題縮小 */
+    h1 { font-size: 1.4rem !important; line-height: 1.3 !important; }
+    h2 { font-size: 1.1rem !important; }
+    h3 { font-size: 1rem !important; }
 
-    [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) { flex-wrap: nowrap !important; }
-    [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) [data-testid="column"] {
-        min-width: 30% !important; flex: 1 1 30% !important;
+    /* Metric 卡片排成一排 */
+    [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"]) {
+        flex-wrap: nowrap !important;
+    }
+    [data-testid="stHorizontalBlock"]:has([data-testid="stMetric"])
+        [data-testid="column"] {
+        min-width: 30% !important;
+        width: 33% !important;
+        flex: 1 1 30% !important;
     }
     [data-testid="stMetricValue"] { font-size: 1rem !important; }
-    [data-testid="stMetricLabel"] p { font-size: 0.65rem !important; }
-    [data-testid="stDataFrame"] > div { overflow-x: auto !important; }
-    [data-testid="stTab"] p { font-size: 0.8rem !important; }
+    [data-testid="stMetricLabel"] { font-size: 0.7rem !important; }
+
+    /* Dataframe 水平捲動 */
+    [data-testid="stDataFrame"] > div {
+        overflow-x: auto !important;
+    }
+
+    /* 減少頁面左右 padding */
+    .block-container {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+        padding-top: 1rem !important;
+    }
+
+    /* Tab 標籤字型 */
+    [data-testid="stTab"] p { font-size: 0.85rem !important; }
+
+    /* 側邊欄提示 */
+    section[data-testid="stSidebar"] { min-width: 280px !important; }
 }
 </style>
 """
@@ -305,47 +118,33 @@ def get_monthly_stats(ticker):
     return stats
 
 
-def color_scale(val, col_data, low_hex, high_hex):
+def color_scale(val, col_data, low_color, high_color):
     if pd.isna(val):
-        return f"background-color: {CARD}; color: {MUTED}"
+        return ""
     mn, mx = col_data.min(), col_data.max()
     ratio = (val - mn) / (mx - mn) if mx != mn else 0.5
-    r1,g1,b1 = int(low_hex[0:2],16), int(low_hex[2:4],16), int(low_hex[4:6],16)
-    r2,g2,b2 = int(high_hex[0:2],16), int(high_hex[2:4],16), int(high_hex[4:6],16)
-    r = int(r1+(r2-r1)*ratio)
-    g = int(g1+(g2-g1)*ratio)
-    b = int(b1+(b2-b1)*ratio)
-    lum = 0.299*r + 0.587*g + 0.114*b
-    fg = "#0e1117" if lum > 140 else "#e2e8f0"
-    return f"background-color: #{r:02x}{g:02x}{b:02x}; color: {fg}"
-
-
-CHART_LAYOUT = dict(
-    paper_bgcolor=CHART_BG,
-    plot_bgcolor=CHART_BG,
-    font=dict(family="Inter, sans-serif", color=TEXT, size=11),
-    xaxis=dict(gridcolor=GRID, linecolor=BORDER, tickcolor=BORDER, tickfont=dict(color=MUTED, size=10)),
-    yaxis=dict(gridcolor=GRID, linecolor=BORDER, tickcolor=BORDER, tickfont=dict(family="JetBrains Mono", color=MUTED, size=10)),
-    margin=dict(t=20, b=10, l=10, r=10),
-    hoverlabel=dict(bgcolor=CARD2, bordercolor=BORDER, font=dict(family="JetBrains Mono", color=TEXT)),
-)
+    r1, g1, b1 = int(low_color[0:2], 16), int(low_color[2:4], 16), int(low_color[4:6], 16)
+    r2, g2, b2 = int(high_color[0:2], 16), int(high_color[2:4], 16), int(high_color[4:6], 16)
+    r = int(r1 + (r2 - r1) * ratio)
+    g = int(g1 + (g2 - g1) * ratio)
+    b = int(b1 + (b2 - b1) * ratio)
+    return f"background-color: #{r:02x}{g:02x}{b:02x}"
 
 
 def make_bar_chart(chart_df, col_avg):
-    vals = chart_df[col_avg].tolist()
-    mx = max(vals) if vals else 1
-    colors = [CYAN if v < mx * 0.6 else (GREEN if v < mx * 0.85 else RED) for v in vals]
     fig = go.Figure(go.Bar(
         x=chart_df["股票名稱"],
-        y=vals,
-        marker=dict(color=colors, opacity=0.85, line=dict(width=0)),
-        text=[f"{v:.4f}" for v in vals],
+        y=chart_df[col_avg],
+        marker_color=HEADER_BLUE,
+        text=chart_df[col_avg].round(4),
         textposition="outside",
-        textfont=dict(family="JetBrains Mono", size=10, color=TEXT),
-        hovertemplate="<b>%{x}</b><br>差值平均: %{y:.4f}<extra></extra>",
     ))
-    fig.update_layout(height=320, **CHART_LAYOUT)
-    fig.update_yaxis(title_text="差值平均", title_font=dict(color=MUTED, size=11))
+    fig.update_layout(
+        yaxis_title="差值平均", xaxis_title="",
+        height=320,
+        margin=dict(t=30, b=10, l=10, r=10),
+        font=dict(size=12),
+    )
     return fig
 
 
@@ -354,30 +153,28 @@ def make_line_chart(df, diffs, avg_d):
     fig.add_trace(go.Scatter(
         x=df.index, y=diffs,
         mode="lines+markers", name="差值",
-        line=dict(color=CYAN, width=2),
-        marker=dict(size=5, color=CYAN, line=dict(color=BG, width=1)),
-        fill="tozeroy",
-        fillcolor=f"{CYAN}18",
-        hovertemplate="%{x}<br><b>差值: %{y:.4f}</b><extra></extra>",
+        line=dict(color=HEADER_BLUE, width=2),
+        marker=dict(size=5),
     ))
     fig.add_hline(
-        y=avg_d, line_dash="dot", line_color=GREEN, line_width=1.5,
-        annotation_text=f"均值 {avg_d:.4f}",
-        annotation_font=dict(color=GREEN, size=11, family="JetBrains Mono"),
-        annotation_position="top right",
+        y=avg_d, line_dash="dash", line_color=HEADER_GREEN,
+        annotation_text=f"平均 {avg_d:.4f}",
+        annotation_font_size=11,
     )
-    fig.update_layout(height=280, xaxis_tickangle=-45, showlegend=False, **CHART_LAYOUT)
+    fig.update_layout(
+        height=280,
+        yaxis_title="差值",
+        xaxis_title="",
+        margin=dict(t=10, b=10, l=10, r=10),
+        xaxis_tickangle=-45,
+        font=dict(size=11),
+    )
     return fig
 
 
 # ── 頁面設定 ──────────────────────────────────────────
-st.set_page_config(
-    page_title="台股差值分析",
-    page_icon="📈",
-    layout="wide",
-    initial_sidebar_state="auto",
-)
-st.markdown(DESIGN_CSS, unsafe_allow_html=True)
+st.set_page_config(page_title="多股差值分析", layout="wide", initial_sidebar_state="auto")
+st.markdown(MOBILE_CSS, unsafe_allow_html=True)
 
 # ── 載入台股清單 ───────────────────────────────────────
 all_stocks = load_tw_stock_list()
@@ -386,56 +183,55 @@ label_to_tuple = {f"{name} ({code})": (name, code) for name, code in all_stocks}
 code_to_label  = {code: f"{name} ({code})" for name, code in all_stocks}
 default_labels = [code_to_label.get(code, f"{name} ({code})") for name, code in DEFAULT_STOCKS]
 
+# ── 重設 session state ───────────────────────────────
 if "selected_labels" not in st.session_state:
     st.session_state.selected_labels = default_labels
 
 
 def render_stock_selector(key_suffix):
+    """Render multiselect + reset; sync via session_state."""
     selected = st.multiselect(
-        "搜尋並選擇股票",
+        "搜尋並選擇股票（輸入名稱或代號）",
         options=option_labels,
         default=st.session_state.selected_labels,
-        placeholder="輸入名稱或代號，例：台積電 / 2330",
+        placeholder="例：台積電 或 2330",
         key=f"multiselect_{key_suffix}",
     )
     st.session_state.selected_labels = selected
-    if st.button("↺ 重設預設清單", use_container_width=True, key=f"reset_{key_suffix}"):
+
+    if st.button("重設為預設清單", use_container_width=True, key=f"reset_{key_suffix}"):
         st.session_state.selected_labels = default_labels
         st.rerun()
-    st.caption(f"資料庫 {len(all_stocks):,} 支上市上櫃股票")
+
+    st.caption(f"資料庫共 {len(all_stocks):,} 支台股")
 
 
-# ── 側邊欄 ────────────────────────────────────────────
+# ── 側邊欄（桌面） ────────────────────────────────────
 with st.sidebar:
-    st.markdown("### 📋 自選股")
+    st.header("📋 自選股")
     render_stock_selector("sidebar")
 
 STOCKS = [label_to_tuple[lbl] for lbl in st.session_state.selected_labels if lbl in label_to_tuple]
 
-# ── 標題列 ────────────────────────────────────────────
-st.markdown("# 台股高低價差值分析")
-st.markdown(
-    f"<p style='color:{MUTED}; font-size:0.85rem; margin-top:-0.5rem; margin-bottom:1rem;'>"
-    f"分析期間：{MONTHS[0][2]} ─ {MONTHS[-1][2]}　｜　自選股 {len(STOCKS)} 支</p>",
-    unsafe_allow_html=True,
-)
+# ── 主畫面標題 ────────────────────────────────────────
+st.title("多股高低價差值分析")
 
-# ── 手機版自選股 ──────────────────────────────────────
-with st.expander("📋 管理自選股", expanded=False):
+# ── 手機版：自選股展開區（桌面自動折疊） ──────────────
+with st.expander("📋 管理自選股（手機版）", expanded=False):
     render_stock_selector("mobile")
     STOCKS = [label_to_tuple[lbl] for lbl in st.session_state.selected_labels if lbl in label_to_tuple]
 
 # ── Tabs ──────────────────────────────────────────────
-tab_summary, tab_detail = st.tabs(["📊  總覽", "📈  各股明細"])
+tab_summary, tab_detail = st.tabs(["📊 總覽", "📈 各股明細"])
 
 # ── 總覽頁 ────────────────────────────────────────────
 with tab_summary:
     if not STOCKS:
-        st.info("請在側邊欄或上方展開區搜尋並加入股票")
+        st.info("請搜尋並選擇股票（上方展開區或左側側邊欄）")
     else:
-        st.markdown(f"### 差值統計總表　<span style='color:{MUTED};font-size:0.8rem;font-weight:400'>共 {len(STOCKS)} 支</span>", unsafe_allow_html=True)
+        st.subheader(f"各股月份差值統計（共 {len(STOCKS)} 支）")
 
-        with st.spinner("資料下載中…"):
+        with st.spinner("下載資料中…"):
             rows = []
             for stock_name, ticker in STOCKS:
                 row = {"股票名稱": stock_name, "代碼": ticker}
@@ -453,53 +249,55 @@ with tab_summary:
             for col in avg_cols:
                 if col in df.columns:
                     styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "0a1628", "00c896")
+                        lambda v: color_scale(v, df[col].dropna(), "dce6f4", "1f4e79")
                     )
             for col in std_cols:
                 if col in df.columns:
                     styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "0a1628", "ff4b6e")
+                        lambda v: color_scale(v, df[col].dropna(), "fce4e4", "7b0000")
                     )
             return styles
 
-        styled = (
-            summary_df.style
-            .apply(apply_colors, axis=None)
-            .format("{:.4f}", subset=avg_cols + std_cols, na_rep="—")
-            .set_table_styles([{
-                "selector": "th",
-                "props": [("font-family","Inter"), ("font-size","0.75rem"),
-                          ("text-transform","uppercase"), ("letter-spacing","0.05em")]
-            }])
+        styled = summary_df.style.apply(apply_colors, axis=None).format(
+            "{:.4f}", subset=avg_cols + std_cols, na_rep="—"
         )
-        st.dataframe(styled, use_container_width=True, height=min(120 + len(STOCKS) * 35, 500))
+        st.dataframe(styled, use_container_width=True, height=min(100 + len(STOCKS) * 35, 480))
 
         st.divider()
-        st.markdown("### 差值平均比較")
+        st.subheader("差值平均比較圖")
         month_choice = st.selectbox("選擇月份", [m[2] for m in MONTHS], key="summary_month")
         col_avg = f"{month_choice} 平均"
         chart_df = summary_df[[col_avg]].dropna().reset_index()
-        st.plotly_chart(make_bar_chart(chart_df, col_avg), use_container_width=True, config={"responsive": True, "displayModeBar": False})
+        st.plotly_chart(
+            make_bar_chart(chart_df, col_avg),
+            use_container_width=True,
+            config={"responsive": True},
+        )
 
 
 # ── 各股明細頁 ─────────────────────────────────────────
 with tab_detail:
     if not STOCKS:
-        st.info("請在側邊欄或上方展開區搜尋並加入股票")
+        st.info("請搜尋並選擇股票（上方展開區或左側側邊欄）")
     else:
+        # 選股票 + 月份（手機會自動堆疊）
         sel_col1, sel_col2 = st.columns([1, 1])
         with sel_col1:
-            stock_name = st.selectbox("股票", [s[0] for s in STOCKS])
+            stock_name = st.selectbox("選擇股票", [s[0] for s in STOCKS])
         ticker = dict(STOCKS)[stock_name]
         with sel_col2:
-            month_filter = st.selectbox("月份", ["全部"] + [m[2] for m in MONTHS], key="detail_month")
+            month_filter = st.selectbox(
+                "選擇月份", ["全部"] + [m[2] for m in MONTHS], key="detail_month"
+            )
 
-        months_to_show = MONTHS if month_filter == "全部" else [m for m in MONTHS if m[2] == month_filter]
+        months_to_show = (
+            MONTHS if month_filter == "全部"
+            else [m for m in MONTHS if m[2] == month_filter]
+        )
 
         for start, end, label in months_to_show:
-            st.markdown(f"### {label}　{stock_name}　<span style='color:{MUTED};font-size:0.85rem;font-weight:400'>{ticker}</span>", unsafe_allow_html=True)
-
-            with st.spinner(f"載入 {label}…"):
+            st.subheader(f"{label}　{stock_name}（{ticker}）")
+            with st.spinner(f"下載 {label}…"):
                 df = fetch(ticker, start, end)
 
             if df is None or df.empty:
@@ -510,25 +308,26 @@ with tab_detail:
             avg_d = diffs.mean()
             std_d = diffs.std(ddof=1)
 
+            # 指標列（3 欄，手機保持一排）
             m1, m2, m3 = st.columns(3)
-            m1.metric("交易日數", f"{len(df)} 天")
+            m1.metric("交易日數", len(df))
             m2.metric("差值平均", f"{avg_d:.4f}")
             m3.metric("差值標準差", f"{std_d:.4f}")
 
+            # 圖表（手機：上下；桌面：左右）
             left, right = st.columns([2, 3])
 
             diff_col = diffs.dropna()
             def color_diff(val, _col=diff_col):
                 if pd.isna(val):
-                    return f"background-color:{CARD}; color:{MUTED}"
-                ratio = (val-_col.min())/(_col.max()-_col.min()) if _col.max()!=_col.min() else 0.5
-                # dark→green gradient
-                r = int(0x0a + (0x00-0x0a)*ratio)
-                g = int(0x16 + (0xc8-0x16)*ratio)
-                b = int(0x28 + (0x96-0x28)*ratio)
-                lum = 0.299*r + 0.587*g + 0.114*b
-                fg = "#0e1117" if lum > 100 else "#e2e8f0"
-                return f"background-color:#{r:02x}{g:02x}{b:02x}; color:{fg}"
+                    return ""
+                ratio = (
+                    (val - _col.min()) / (_col.max() - _col.min())
+                    if _col.max() != _col.min() else 0.5
+                )
+                r = int(0xff + (0xd7 - 0xff) * ratio)
+                g = int(0xff * (1 - ratio))
+                return f"background-color: #{r:02x}{g:02x}00"
 
             with left:
                 st.dataframe(
@@ -540,7 +339,7 @@ with tab_detail:
                 st.plotly_chart(
                     make_line_chart(df, diffs, avg_d),
                     use_container_width=True,
-                    config={"responsive": True, "displayModeBar": False},
+                    config={"responsive": True},
                 )
 
             st.divider()

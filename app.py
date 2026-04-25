@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import twstock
 import calendar
-from datetime import date
+from datetime import date, timedelta
 
 DEFAULT_STOCKS = [
     ("奕力-KY",  "3532.TW"),
@@ -22,13 +22,13 @@ def _prev_months(n=3):
     today = date.today()
     result = []
     for i in range(n, 0, -1):
-        month = today.month - i
-        year = today.year + month // 12 if month <= 0 else today.year
-        month = month % 12 or 12
+        month = (today.month - i - 1) % 12 + 1
+        year = today.year + (today.month - i - 1) // 12
         last_day = calendar.monthrange(year, month)[1]
+        end = date(year, month, last_day) + timedelta(days=1)  # exclusive end for yfinance
         result.append((
             f"{year}-{month:02d}-01",
-            f"{year}-{month:02d}-{last_day:02d}",
+            end.strftime("%Y-%m-%d"),
             f"{year}年{month}月",
         ))
     return result

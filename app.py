@@ -352,7 +352,7 @@ CHART_LAYOUT = dict(
 )
 
 
-MONTH_COLORS = ["#2563eb", "#16a34a", "#f59e0b"]
+MONTH_COLORS = ["#93c5fd", "#3b82f6", "#1e40af"]
 
 
 def make_grouped_chart(summary_df, col_suffix, y_title):

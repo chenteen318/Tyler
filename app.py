@@ -366,7 +366,7 @@ def make_bar_chart(chart_df, col_avg):
         hovertemplate="<b>%{x}</b><br>差值平均: %{y:.4f}<extra></extra>",
     ))
     fig.update_layout(height=320, **CHART_LAYOUT)
-    fig.update_yaxis(title_text="差值平均", title_font=dict(color=MUTED, size=11))
+    fig.update_yaxes(title_text="差值平均", title_font=dict(color=MUTED, size=11))
     return fig
 
 

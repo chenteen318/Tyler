@@ -272,7 +272,7 @@ def load_tw_stock_list():
     for code, info in twstock.codes.items():
         if not code.isdigit():
             continue
-        if getattr(info, "group", None) != "股票":
+        if code.startswith("00"):
             continue
         suffix = suffix_map.get(info.market)
         if suffix and info.name:

@@ -272,6 +272,8 @@ def load_tw_stock_list():
     for code, info in twstock.codes.items():
         if not code.isdigit():
             continue
+        if getattr(info, "group", None) != "股票":
+            continue
         suffix = suffix_map.get(info.market)
         if suffix and info.name:
             results.append((info.name, f"{code}{suffix}"))
@@ -388,6 +390,8 @@ default_labels = [code_to_label.get(code, f"{name} ({code})") for name, code in 
 
 if "selected_labels" not in st.session_state:
     st.session_state.selected_labels = default_labels
+if "analysis_started" not in st.session_state:
+    st.session_state.analysis_started = False
 
 
 def render_stock_selector(key_suffix):
@@ -401,6 +405,7 @@ def render_stock_selector(key_suffix):
     st.session_state.selected_labels = selected
     if st.button("↺ 重設預設清單", use_container_width=True, key=f"reset_{key_suffix}"):
         st.session_state.selected_labels = default_labels
+        st.session_state.analysis_started = False
         st.rerun()
     st.caption(f"資料庫 {len(all_stocks):,} 支上市上櫃股票")
 
@@ -409,6 +414,10 @@ def render_stock_selector(key_suffix):
 with st.sidebar:
     st.markdown("### 📋 自選股")
     render_stock_selector("sidebar")
+    st.markdown("---")
+    if st.button("🔍 開始分析", use_container_width=True, key="start_sidebar", type="primary"):
+        st.session_state.analysis_started = True
+        st.rerun()
 
 STOCKS = [label_to_tuple[lbl] for lbl in st.session_state.selected_labels if lbl in label_to_tuple]
 
@@ -432,6 +441,8 @@ tab_summary, tab_detail = st.tabs(["📊  總覽", "📈  各股明細"])
 with tab_summary:
     if not STOCKS:
         st.info("請在側邊欄或上方展開區搜尋並加入股票")
+    elif not st.session_state.analysis_started:
+        st.info("選好股票後，點擊側邊欄的「🔍 開始分析」以載入資料")
     else:
         st.markdown(f"### 差值統計總表　<span style='color:{MUTED};font-size:0.8rem;font-weight:400'>共 {len(STOCKS)} 支</span>", unsafe_allow_html=True)
 
@@ -486,6 +497,8 @@ with tab_summary:
 with tab_detail:
     if not STOCKS:
         st.info("請在側邊欄或上方展開區搜尋並加入股票")
+    elif not st.session_state.analysis_started:
+        st.info("選好股票後，點擊側邊欄的「🔍 開始分析」以載入資料")
     else:
         sel_col1, sel_col2 = st.columns([1, 1])
         with sel_col1:

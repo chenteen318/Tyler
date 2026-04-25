@@ -352,21 +352,32 @@ CHART_LAYOUT = dict(
 )
 
 
-def make_bar_chart(chart_df, col_avg):
-    vals = chart_df[col_avg].tolist()
-    mx = max(vals) if vals else 1
-    colors = [BLUE if v < mx * 0.6 else (GREEN if v < mx * 0.85 else RED) for v in vals]
-    fig = go.Figure(go.Bar(
-        x=chart_df["股票名稱"],
-        y=vals,
-        marker=dict(color=colors, opacity=0.85, line=dict(width=0)),
-        text=[f"{v:.4f}" for v in vals],
-        textposition="outside",
-        textfont=dict(family="JetBrains Mono", size=10, color=TEXT),
-        hovertemplate="<b>%{x}</b><br>差值平均: %{y:.4f}<extra></extra>",
-    ))
-    fig.update_layout(height=320, **CHART_LAYOUT)
-    fig.update_yaxes(title_text="差值平均", title_font=dict(color=MUTED, size=11))
+MONTH_COLORS = ["#2563eb", "#16a34a", "#f59e0b"]
+
+
+def make_grouped_chart(summary_df, col_suffix, y_title):
+    fig = go.Figure()
+    stocks = summary_df.index.tolist()
+    for i, (_, _, label) in enumerate(MONTHS):
+        col = f"{label} {col_suffix}"
+        vals = summary_df[col].tolist() if col in summary_df.columns else [None] * len(stocks)
+        fig.add_trace(go.Bar(
+            name=label,
+            x=stocks,
+            y=vals,
+            marker=dict(color=MONTH_COLORS[i], opacity=0.85, line=dict(width=0)),
+            text=[f"{v:.4f}" if v is not None and not pd.isna(v) else "—" for v in vals],
+            textposition="outside",
+            textfont=dict(family="JetBrains Mono", size=9, color=TEXT),
+            hovertemplate=f"<b>%{{x}}</b><br>{label}<br>{y_title}: %{{y:.4f}}<extra></extra>",
+        ))
+    fig.update_layout(
+        barmode="group",
+        height=340,
+        legend=dict(orientation="h", y=1.08, x=0, font=dict(size=11, color=TEXT)),
+        **CHART_LAYOUT,
+    )
+    fig.update_yaxes(title_text=y_title, title_font=dict(color=MUTED, size=11))
     return fig
 
 
@@ -505,11 +516,11 @@ with tab_summary:
         st.dataframe(styled, use_container_width=True, height=min(120 + len(STOCKS) * 35, 500))
 
         st.divider()
-        st.markdown("### 差值平均比較")
-        month_choice = st.selectbox("選擇月份", [m[2] for m in MONTHS], key="summary_month")
-        col_avg = f"{month_choice} 平均"
-        chart_df = summary_df[[col_avg]].dropna().reset_index()
-        st.plotly_chart(make_bar_chart(chart_df, col_avg), use_container_width=True, config={"responsive": True, "displayModeBar": False})
+        st.markdown("### 各股差值平均（前三個月）")
+        st.plotly_chart(make_grouped_chart(summary_df, "平均", "差值平均"), use_container_width=True, config={"responsive": True, "displayModeBar": False})
+
+        st.markdown("### 各股差值標準差（前三個月）")
+        st.plotly_chart(make_grouped_chart(summary_df, "標準差", "差值標準差"), use_container_width=True, config={"responsive": True, "displayModeBar": False})
 
 
 # ── 各股明細頁 ─────────────────────────────────────────

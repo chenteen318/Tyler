@@ -491,15 +491,10 @@ with tab_summary:
 
         def apply_colors(df):
             styles = pd.DataFrame("", index=df.index, columns=df.columns)
-            for col in avg_cols:
+            for col in avg_cols + std_cols:
                 if col in df.columns:
                     styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "dbeafe", "16a34a")
-                    )
-            for col in std_cols:
-                if col in df.columns:
-                    styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "fef2f2", "dc2626")
+                        lambda v: color_scale(v, df[col].dropna(), "dbeafe", "1e40af")
                     )
             return styles
 

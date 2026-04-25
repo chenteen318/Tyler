@@ -510,25 +510,29 @@ with tab_summary:
         st.dataframe(styled, use_container_width=True, height=min(120 + len(STOCKS) * 35, 500))
 
         st.divider()
-        st.markdown("### (差值平均 + 2σ) ÷ 當日股價")
+        last_label = MONTHS[-1][2]
+        st.markdown(f"### (差值平均 + 2σ) ÷ 當日股價　<span style='color:{MUTED};font-size:0.8rem;font-weight:400'>差值取自 {last_label}</span>", unsafe_allow_html=True)
 
         ratio_rows = []
         for stock_name, ticker in STOCKS:
             price = fetch_current_price(ticker)
-            row = {"股票名稱": stock_name, "當日股價": round(price, 2) if price else None}
-            for label, avg_d, std_d in get_monthly_stats(ticker):
-                if avg_d is not None and std_d is not None and price:
-                    row[label] = round((avg_d + 2 * std_d) / price, 6)
-                else:
-                    row[label] = None
-            ratio_rows.append(row)
+            stats = get_monthly_stats(ticker)
+            _, avg_d, std_d = stats[-1]  # most recent month only
+            if avg_d is not None and std_d is not None and price:
+                ratio = round((avg_d + 2 * std_d) / price, 6)
+            else:
+                ratio = None
+            ratio_rows.append({
+                "股票名稱": stock_name,
+                "當日股價": round(price, 2) if price else None,
+                f"(均值+2σ)÷股價": ratio,
+            })
 
         ratio_df = pd.DataFrame(ratio_rows).set_index("股票名稱")
-        month_cols = [m[2] for m in MONTHS]
         st.dataframe(
             ratio_df.style
             .format("{:.2f}", subset=["當日股價"], na_rep="—")
-            .format("{:.4%}", subset=[c for c in month_cols if c in ratio_df.columns], na_rep="—")
+            .format("{:.4%}", subset=["(均值+2σ)÷股價"], na_rep="—")
             .set_table_styles([{
                 "selector": "th",
                 "props": [("font-family","Inter"), ("font-size","0.75rem"),

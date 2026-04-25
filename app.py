@@ -314,6 +314,17 @@ def fetch(ticker, start, end):
         return None
 
 
+@st.cache_data(ttl=3600)
+def fetch_current_price(ticker):
+    try:
+        df = yf.download(ticker, period="5d", auto_adjust=True, progress=False, timeout=10)
+        if df.empty:
+            return None
+        return float(df["Close"].iloc[-1])
+    except Exception:
+        return None
+
+
 def get_monthly_stats(ticker):
     stats = []
     for start, end, label in MONTHS:
@@ -497,6 +508,35 @@ with tab_summary:
             }])
         )
         st.dataframe(styled, use_container_width=True, height=min(120 + len(STOCKS) * 35, 500))
+
+        st.divider()
+        st.markdown("### (差值平均 + 2σ) ÷ 當日股價")
+
+        ratio_rows = []
+        for stock_name, ticker in STOCKS:
+            price = fetch_current_price(ticker)
+            row = {"股票名稱": stock_name, "當日股價": round(price, 2) if price else None}
+            for label, avg_d, std_d in get_monthly_stats(ticker):
+                if avg_d is not None and std_d is not None and price:
+                    row[label] = round((avg_d + 2 * std_d) / price, 6)
+                else:
+                    row[label] = None
+            ratio_rows.append(row)
+
+        ratio_df = pd.DataFrame(ratio_rows).set_index("股票名稱")
+        month_cols = [m[2] for m in MONTHS]
+        st.dataframe(
+            ratio_df.style
+            .format("{:.2f}", subset=["當日股價"], na_rep="—")
+            .format("{:.4%}", subset=[c for c in month_cols if c in ratio_df.columns], na_rep="—")
+            .set_table_styles([{
+                "selector": "th",
+                "props": [("font-family","Inter"), ("font-size","0.75rem"),
+                          ("text-transform","uppercase"), ("letter-spacing","0.05em")]
+            }]),
+            use_container_width=True,
+            height=min(120 + len(STOCKS) * 35, 500),
+        )
 
         st.divider()
         st.markdown("### 各股差值平均（前三個月）")

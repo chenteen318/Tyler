@@ -320,7 +320,8 @@ def fetch_current_price(ticker):
         df = yf.download(ticker, period="5d", auto_adjust=True, progress=False, timeout=10)
         if df.empty:
             return None
-        return float(df["Close"].iloc[-1])
+        close = df["Close"].squeeze().dropna()
+        return float(close.iloc[-1])
     except Exception:
         return None
 

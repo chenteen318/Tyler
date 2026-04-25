@@ -378,7 +378,7 @@ def make_line_chart(df, diffs, avg_d):
         line=dict(color=BLUE, width=2),
         marker=dict(size=5, color=BLUE, line=dict(color=BG, width=1)),
         fill="tozeroy",
-        fillcolor=f"{BLUE}18",
+        fillcolor="rgba(37,99,235,0.08)",
         hovertemplate="%{x}<br><b>差值: %{y:.4f}</b><extra></extra>",
     ))
     fig.add_hline(

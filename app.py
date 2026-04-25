@@ -22,17 +22,17 @@ MONTHS = [
 ]
 
 # ── Design tokens ─────────────────────────────────────
-BG        = "#0e1117"
-CARD      = "#1a1f2e"
-CARD2     = "#222840"
-BORDER    = "#2d3655"
-CYAN      = "#00d4ff"
-GREEN     = "#00c896"
-RED       = "#ff4b6e"
-TEXT      = "#e2e8f0"
-MUTED     = "#8892b0"
-CHART_BG  = "#0d1117"
-GRID      = "#1e2a3a"
+BG        = "#ffffff"
+CARD      = "#f8fafc"
+CARD2     = "#f1f5f9"
+BORDER    = "#e2e8f0"
+BLUE      = "#2563eb"
+GREEN     = "#16a34a"
+RED       = "#dc2626"
+TEXT      = "#0f172a"
+MUTED     = "#64748b"
+CHART_BG  = "#ffffff"
+GRID      = "#f1f5f9"
 
 DESIGN_CSS = """
 <style>
@@ -40,8 +40,8 @@ DESIGN_CSS = """
 
 /* ── Base ── */
 html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
-    background-color: #0e1117 !important;
-    color: #e2e8f0 !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
     font-family: 'Inter', sans-serif !important;
 }
 .block-container {
@@ -51,13 +51,13 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
 
 /* ── Sidebar ── */
 [data-testid="stSidebar"] {
-    background-color: #111827 !important;
-    border-right: 1px solid #2d3655 !important;
+    background-color: #f8fafc !important;
+    border-right: 1px solid #e2e8f0 !important;
 }
-[data-testid="stSidebar"] * { color: #e2e8f0 !important; }
+[data-testid="stSidebar"] * { color: #0f172a !important; }
 [data-testid="stSidebar"] .stMultiSelect > div > div {
-    background-color: #1a1f2e !important;
-    border-color: #2d3655 !important;
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
 }
 
 /* ── Title ── */
@@ -65,7 +65,7 @@ h1 {
     font-family: 'Inter', sans-serif !important;
     font-weight: 700 !important;
     font-size: 1.9rem !important;
-    background: linear-gradient(90deg, #00d4ff, #00c896) !important;
+    background: linear-gradient(90deg, #2563eb, #16a34a) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
@@ -75,27 +75,27 @@ h2 {
     font-family: 'Inter', sans-serif !important;
     font-weight: 600 !important;
     font-size: 1.1rem !important;
-    color: #cbd5e1 !important;
+    color: #334155 !important;
     letter-spacing: 0.02em !important;
 }
 h3 {
     font-family: 'Inter', sans-serif !important;
     font-weight: 600 !important;
     font-size: 1rem !important;
-    color: #00d4ff !important;
-    border-left: 3px solid #00d4ff;
+    color: #2563eb !important;
+    border-left: 3px solid #2563eb;
     padding-left: 0.6rem !important;
     margin: 1.2rem 0 0.6rem !important;
 }
 
 /* ── Tabs ── */
 [data-testid="stTabs"] [role="tablist"] {
-    border-bottom: 1px solid #2d3655 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
     gap: 0.25rem !important;
 }
 [data-testid="stTabs"] button[role="tab"] {
     background: transparent !important;
-    color: #8892b0 !important;
+    color: #64748b !important;
     border: none !important;
     border-bottom: 2px solid transparent !important;
     font-family: 'Inter', sans-serif !important;
@@ -104,33 +104,34 @@ h3 {
     padding: 0.6rem 1.2rem !important;
     transition: all 0.2s !important;
 }
-[data-testid="stTabs"] button[role="tab"]:hover { color: #e2e8f0 !important; }
+[data-testid="stTabs"] button[role="tab"]:hover { color: #0f172a !important; }
 [data-testid="stTabs"] button[role="tab"][aria-selected="true"] {
-    color: #00d4ff !important;
-    border-bottom: 2px solid #00d4ff !important;
+    color: #2563eb !important;
+    border-bottom: 2px solid #2563eb !important;
 }
 
 /* ── Metric cards ── */
 [data-testid="stMetric"] {
-    background: linear-gradient(135deg, #1a1f2e, #222840) !important;
-    border: 1px solid #2d3655 !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 12px !important;
     padding: 1rem 1.2rem !important;
     position: relative !important;
     overflow: hidden !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
 }
 [data-testid="stMetric"]::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #00c896);
+    background: linear-gradient(90deg, #2563eb, #16a34a);
 }
 [data-testid="stMetricLabel"] p {
     font-family: 'Inter', sans-serif !important;
     font-size: 0.72rem !important;
     font-weight: 500 !important;
-    color: #8892b0 !important;
+    color: #64748b !important;
     text-transform: uppercase !important;
     letter-spacing: 0.08em !important;
 }
@@ -138,14 +139,14 @@ h3 {
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 1.5rem !important;
     font-weight: 500 !important;
-    color: #00d4ff !important;
+    color: #2563eb !important;
 }
 
 /* ── Buttons ── */
 .stButton > button {
-    background: linear-gradient(135deg, #00d4ff22, #00c89622) !important;
-    color: #00d4ff !important;
-    border: 1px solid #00d4ff55 !important;
+    background: #ffffff !important;
+    color: #2563eb !important;
+    border: 1px solid #2563eb !important;
     border-radius: 8px !important;
     font-family: 'Inter', sans-serif !important;
     font-weight: 500 !important;
@@ -154,23 +155,23 @@ h3 {
     transition: all 0.2s !important;
 }
 .stButton > button:hover {
-    background: linear-gradient(135deg, #00d4ff44, #00c89644) !important;
-    border-color: #00d4ff !important;
-    box-shadow: 0 0 12px #00d4ff33 !important;
+    background: #eff6ff !important;
+    border-color: #1d4ed8 !important;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.15) !important;
 }
 
 /* ── Selectbox / Multiselect ── */
 [data-testid="stSelectbox"] > div > div,
 [data-testid="stMultiSelect"] > div > div {
-    background-color: #1a1f2e !important;
-    border-color: #2d3655 !important;
+    background-color: #ffffff !important;
+    border-color: #e2e8f0 !important;
     border-radius: 8px !important;
-    color: #e2e8f0 !important;
+    color: #0f172a !important;
     font-family: 'Inter', sans-serif !important;
 }
 [data-testid="stSelectbox"] label,
 [data-testid="stMultiSelect"] label {
-    color: #8892b0 !important;
+    color: #64748b !important;
     font-size: 0.8rem !important;
     font-weight: 500 !important;
     text-transform: uppercase !important;
@@ -179,13 +180,13 @@ h3 {
 
 /* ── Expander ── */
 [data-testid="stExpander"] {
-    background-color: #1a1f2e !important;
-    border: 1px solid #2d3655 !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 10px !important;
     margin-bottom: 1rem !important;
 }
 [data-testid="stExpander"] summary {
-    color: #8892b0 !important;
+    color: #64748b !important;
     font-family: 'Inter', sans-serif !important;
     font-size: 0.85rem !important;
 }
@@ -194,42 +195,42 @@ h3 {
 [data-testid="stDataFrame"] {
     border-radius: 10px !important;
     overflow: hidden !important;
-    border: 1px solid #2d3655 !important;
+    border: 1px solid #e2e8f0 !important;
 }
 [data-testid="stDataFrame"] th {
-    background-color: #1a1f2e !important;
-    color: #8892b0 !important;
+    background-color: #f8fafc !important;
+    color: #64748b !important;
     font-family: 'Inter', sans-serif !important;
     font-size: 0.75rem !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.06em !important;
-    border-bottom: 1px solid #2d3655 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
 }
 [data-testid="stDataFrame"] td {
     font-family: 'JetBrains Mono', monospace !important;
     font-size: 0.82rem !important;
-    color: #cbd5e1 !important;
-    border-bottom: 1px solid #1e2533 !important;
+    color: #334155 !important;
+    border-bottom: 1px solid #f1f5f9 !important;
 }
 
 /* ── Divider ── */
-hr { border-color: #2d3655 !important; margin: 1.5rem 0 !important; }
+hr { border-color: #e2e8f0 !important; margin: 1.5rem 0 !important; }
 
 /* ── Info box ── */
 [data-testid="stAlert"] {
-    background-color: #1a1f2e !important;
-    border: 1px solid #2d3655 !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
     border-radius: 8px !important;
-    color: #8892b0 !important;
+    color: #64748b !important;
 }
 
 /* ── Spinner ── */
-[data-testid="stSpinner"] { color: #00d4ff !important; }
+[data-testid="stSpinner"] { color: #2563eb !important; }
 
 /* ── Caption ── */
 [data-testid="stCaptionContainer"] p {
-    color: #4a5568 !important;
+    color: #94a3b8 !important;
     font-size: 0.75rem !important;
 }
 
@@ -237,8 +238,8 @@ hr { border-color: #2d3655 !important; margin: 1.5rem 0 !important; }
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
 [data-testid="stSidebar"] h3 {
-    -webkit-text-fill-color: #00d4ff !important;
-    color: #00d4ff !important;
+    -webkit-text-fill-color: #2563eb !important;
+    color: #2563eb !important;
     border: none !important;
     padding-left: 0 !important;
 }
@@ -283,16 +284,19 @@ def load_tw_stock_list():
 
 @st.cache_data(ttl=3600)
 def fetch(ticker, start, end):
-    df = yf.download(ticker, start=start, end=end, auto_adjust=True, progress=False)
-    if df.empty:
+    try:
+        df = yf.download(ticker, start=start, end=end, auto_adjust=True, progress=False, timeout=10)
+        if df.empty:
+            return None
+        df = df[["High", "Low", "Close"]].copy()
+        df.index = pd.to_datetime(df.index)
+        df.columns = ["最高價", "最低價", "收盤價"]
+        df["差值"] = df["最高價"] - df["最低價"]
+        df.index = df.index.strftime("%Y-%m-%d")
+        df.index.name = "日期"
+        return df.round(2)
+    except Exception:
         return None
-    df = df[["High", "Low", "Close"]].copy()
-    df.index = pd.to_datetime(df.index)
-    df.columns = ["最高價", "最低價", "收盤價"]
-    df["差值"] = df["最高價"] - df["最低價"]
-    df.index = df.index.strftime("%Y-%m-%d")
-    df.index.name = "日期"
-    return df.round(2)
 
 
 def get_monthly_stats(ticker):
@@ -318,7 +322,7 @@ def color_scale(val, col_data, low_hex, high_hex):
     g = int(g1+(g2-g1)*ratio)
     b = int(b1+(b2-b1)*ratio)
     lum = 0.299*r + 0.587*g + 0.114*b
-    fg = "#0e1117" if lum > 140 else "#e2e8f0"
+    fg = "#0f172a" if lum > 140 else "#ffffff"
     return f"background-color: #{r:02x}{g:02x}{b:02x}; color: {fg}"
 
 
@@ -336,7 +340,7 @@ CHART_LAYOUT = dict(
 def make_bar_chart(chart_df, col_avg):
     vals = chart_df[col_avg].tolist()
     mx = max(vals) if vals else 1
-    colors = [CYAN if v < mx * 0.6 else (GREEN if v < mx * 0.85 else RED) for v in vals]
+    colors = [BLUE if v < mx * 0.6 else (GREEN if v < mx * 0.85 else RED) for v in vals]
     fig = go.Figure(go.Bar(
         x=chart_df["股票名稱"],
         y=vals,
@@ -356,10 +360,10 @@ def make_line_chart(df, diffs, avg_d):
     fig.add_trace(go.Scatter(
         x=df.index, y=diffs,
         mode="lines+markers", name="差值",
-        line=dict(color=CYAN, width=2),
-        marker=dict(size=5, color=CYAN, line=dict(color=BG, width=1)),
+        line=dict(color=BLUE, width=2),
+        marker=dict(size=5, color=BLUE, line=dict(color=BG, width=1)),
         fill="tozeroy",
-        fillcolor=f"{CYAN}18",
+        fillcolor=f"{BLUE}18",
         hovertemplate="%{x}<br><b>差值: %{y:.4f}</b><extra></extra>",
     ))
     fig.add_hline(
@@ -464,12 +468,12 @@ with tab_summary:
             for col in avg_cols:
                 if col in df.columns:
                     styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "0a1628", "00c896")
+                        lambda v: color_scale(v, df[col].dropna(), "dbeafe", "16a34a")
                     )
             for col in std_cols:
                 if col in df.columns:
                     styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "0a1628", "ff4b6e")
+                        lambda v: color_scale(v, df[col].dropna(), "fef2f2", "dc2626")
                     )
             return styles
 
@@ -535,12 +539,11 @@ with tab_detail:
                 if pd.isna(val):
                     return f"background-color:{CARD}; color:{MUTED}"
                 ratio = (val-_col.min())/(_col.max()-_col.min()) if _col.max()!=_col.min() else 0.5
-                # dark→green gradient
-                r = int(0x0a + (0x00-0x0a)*ratio)
-                g = int(0x16 + (0xc8-0x16)*ratio)
-                b = int(0x28 + (0x96-0x28)*ratio)
+                r = int(0xdb + (0x16-0xdb)*ratio)
+                g = int(0xea + (0xa3-0xea)*ratio)
+                b = int(0xfe + (0x4a-0xfe)*ratio)
                 lum = 0.299*r + 0.587*g + 0.114*b
-                fg = "#0e1117" if lum > 100 else "#e2e8f0"
+                fg = "#0f172a" if lum > 140 else "#ffffff"
                 return f"background-color:#{r:02x}{g:02x}{b:02x}; color:{fg}"
 
             with left:

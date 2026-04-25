@@ -415,11 +415,9 @@ st.markdown(DESIGN_CSS, unsafe_allow_html=True)
 all_stocks = load_tw_stock_list()
 option_labels  = [f"{name} ({code})" for name, code in all_stocks]
 label_to_tuple = {f"{name} ({code})": (name, code) for name, code in all_stocks}
-code_to_label  = {code: f"{name} ({code})" for name, code in all_stocks}
-default_labels = [code_to_label.get(code, f"{name} ({code})") for name, code in DEFAULT_STOCKS]
 
 if "selected_labels" not in st.session_state:
-    st.session_state.selected_labels = default_labels
+    st.session_state.selected_labels = []
 if "analysis_started" not in st.session_state:
     st.session_state.analysis_started = False
 
@@ -433,8 +431,8 @@ def render_stock_selector(key_suffix):
         key=f"multiselect_{key_suffix}",
     )
     st.session_state.selected_labels = selected
-    if st.button("↺ 重設預設清單", use_container_width=True, key=f"reset_{key_suffix}"):
-        st.session_state.selected_labels = default_labels
+    if st.button("✕ 清除選股", use_container_width=True, key=f"reset_{key_suffix}"):
+        st.session_state.selected_labels = []
         st.session_state.analysis_started = False
         st.rerun()
     st.caption(f"資料庫 {len(all_stocks):,} 支上市上櫃股票")

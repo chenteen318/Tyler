@@ -487,18 +487,8 @@ with tab_summary:
         avg_cols = [c for c in summary_df.columns if "平均" in c]
         std_cols = [c for c in summary_df.columns if "標準差" in c]
 
-        def apply_colors(df):
-            styles = pd.DataFrame("", index=df.index, columns=df.columns)
-            for col in avg_cols + std_cols:
-                if col in df.columns:
-                    styles[col] = df[col].apply(
-                        lambda v: color_scale(v, df[col].dropna(), "dbeafe", "1e40af")
-                    )
-            return styles
-
         styled = (
             summary_df.style
-            .apply(apply_colors, axis=None)
             .format("{:.4f}", subset=avg_cols + std_cols, na_rep="—")
             .set_table_styles([{
                 "selector": "th",

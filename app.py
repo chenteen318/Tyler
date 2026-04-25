@@ -3,6 +3,8 @@ import yfinance as yf
 import pandas as pd
 import plotly.graph_objects as go
 import twstock
+import calendar
+from datetime import date
 
 DEFAULT_STOCKS = [
     ("奕力-KY",  "3532.TW"),
@@ -15,11 +17,24 @@ DEFAULT_STOCKS = [
     ("漢磊",      "6168.TW"),
 ]
 
-MONTHS = [
-    ("2025-12-01", "2025-12-31", "2025年12月"),
-    ("2026-01-01", "2026-01-31", "2026年1月"),
-    ("2026-02-01", "2026-02-28", "2026年2月"),
-]
+
+def _prev_months(n=3):
+    today = date.today()
+    result = []
+    for i in range(n, 0, -1):
+        month = today.month - i
+        year = today.year + month // 12 if month <= 0 else today.year
+        month = month % 12 or 12
+        last_day = calendar.monthrange(year, month)[1]
+        result.append((
+            f"{year}-{month:02d}-01",
+            f"{year}-{month:02d}-{last_day:02d}",
+            f"{year}年{month}月",
+        ))
+    return result
+
+
+MONTHS = _prev_months()
 
 # ── Design tokens ─────────────────────────────────────
 BG        = "#ffffff"
